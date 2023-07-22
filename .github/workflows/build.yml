@@ -5,6 +5,8 @@ on: [push, pull_request]
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      DENO_DIR: my_cache_directory
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -13,6 +15,13 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.DENO_DIR }}
+          key: ${{ hashFiles('deno.lock') }}
+
       - name: Format Check
         run: deno fmt --check
 
@@ -24,6 +33,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: check
+    env:
+      DENO_DIR: my_cache_directory
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,6 +43,12 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      
+      - name: Cache Deno dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.DENO_DIR }}
+          key: ${{ hashFiles('deno.lock') }}
 
       - name: Build
         run: deno task build
