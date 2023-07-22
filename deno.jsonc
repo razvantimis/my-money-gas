@@ -11,5 +11,15 @@
   "tasks": {
     "build": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _build.ts",
     "deploy": "deno task build && deno task build deploy"
+  },
+  "fmt": {
+    "useTabs": true,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": ["src/"],
+    "exclude": ["src/testdata/"]
   }
 }
