@@ -50,10 +50,6 @@ jobs:
           path: ${{ env.DENO_DIR }}
           key: ${{ hashFiles('deno.lock') }}
     
-      - name: "Create env file"
-        run: |
-          echo "${{ secrets.INTERACTIVE_BROKERS_FLEX_WEB_TOKEN }}" > .env
-  
       - name: Build
         run: deno task build
 
