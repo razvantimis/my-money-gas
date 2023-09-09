@@ -11,7 +11,7 @@ switch (command) {
       build({
         bundle: true,
         charset: "utf8",
-        entryPoints: ["main.ts"],
+        entryPoints: ["src/main.ts"],
         outfile: "dist/out.js",
         target: "es2017", // Workaround for jquery/esprima#2034
         plugins: [
